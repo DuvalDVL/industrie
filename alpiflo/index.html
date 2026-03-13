@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+       CONFIG — SEUL BLOC À MODIFIER PAR L'AGENT
+       ============================================================ -->
+  <script>
+    const CLIENT = {
+  nom:             "Alpiflo Chaudronnerie",
+  sigle:           "AF",
+  secteur:         "Chaudronnerie & Métallurgie",
+  ville:           "Entrelacs",
+  departement:     "Savoie",
+  tel:             "07 65 20 32 59",
+  email:           "alpiflo.chaudronnerie@gmail.com",
+  adresse:         "ZA Le Sauvage 73410 Entrelacs",
+  siren:           "921614004",
+  anneeCreation:   2022,
+  effectif:        "TPE artisanale",
+  slogan:          "Du métal façonné avec méthode, dans les Bauges.",
+  description:     "Alpiflo Chaudronnerie intervient en Savoie et en Haute-Savoie pour la fabrication, la transformation et la réparation de pièces métalliques sur mesure. Basée à Entrelacs, dans le massif des Bauges, l'entreprise répond aux besoins des artisans, industriels et particuliers avec rigueur et réactivité. Chaque chantier est abordé avec soin, du devis à la livraison finale.",
+  couleurPrimaire: "#0F1A24",
+  couleurSecond:   "#172230",
+  couleurAccent:   "#F0820A",
+  couleurMetal:    "#7A8C9E",
+  couleurTexte:    "#C8D4DE",
+  certifications: ["Artisan qualifié — Chambre de Métiers"],
+  capacites: [
+    { code: "01", titre: "Découpe & traçage",         texte: "Découpe acier, inox et aluminium selon plans ou gabarits fournis par le client.",        spec: "Épaisseurs jusqu'à 20 mm" },
+    { code: "02", titre: "Pliage & formage",           texte: "Mise en forme de tôles et profils par pliage, cintrage et emboutissage manuel ou assisté.", spec: "Pièces uniques & petites séries" },
+    { code: "03", titre: "Soudure TIG / MIG",          texte: "Assemblage de structures métalliques en acier, inox et aluminium avec finition soignée.",   spec: "Soudures étanches & portantes" },
+    { code: "04", titre: "Fabrication sur mesure",     texte: "Conception et réalisation de pièces, capots, réservoirs et structures selon cahier des charges.", spec: "Prototypes & série limitée" },
+    { code: "05", titre: "Chaudronnerie inox",         texte: "Fabrication de cuves, goulottes, conduits et équipements inox pour l'alimentaire et l'industrie.", spec: "Finitions alimentaires disponibles" },
+    { code: "06", titre: "Réparation & renforcement",  texte: "Remise en état de pièces usées, renforcement de structures existantes et modifications d'équipements.", spec: "Interventions sur site possibles" },
+  ],
+  secteursMarchés: [
+    { icone: "🏗",  nom: "BTP & Second œuvre" },
+    { icone: "🚜", nom: "Agriculture & Machinisme" },
+    { icone: "🏭", nom: "Industrie locale" },
+    { icone: "🍶", nom: "Agroalimentaire" },
+    { icone: "⛷",  nom: "Domaines skiables" },
+    { icone: "🏠", nom: "Particuliers & Artisans" },
+  ],
+  chiffres: [
+    { val: "5★",   label: "Note Google" },
+    { val: "100%", label: "Fabrication locale" },
+    { val: "48h",  label: "Délai de devis" },
+    { val: "73/74", label: "Savoie & Haute-Savoie" }
+  ],
+  atouts: [
+    "Devis gratuit sous 48h",
+    "Ouvert du lundi au vendredi de 7h30 à 19h",
+    "Ouvert le samedi matin de 7h30 à 12h",
+    "Fabrication 100 % locale en Savoie",
+    "Réalisation de pièces uniques sur plans ou croquis"
+  ]
+};
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.title = `${CLIENT.secteur} — ${CLIENT.nom} | ${CLIENT.ville}`;
+      document.querySelector('meta[name="description"]').content =
+        `${CLIENT.nom} — ${CLIENT.secteur} à ${CLIENT.ville}. ${CLIENT.slogan} ☎ ${CLIENT.tel}`;
+    });
+  </script>
+  <meta name="description" content="" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── VARIABLES ────────────────────────────────────────────── */
+    :root {
+      --bg:        #0A0E14;
+      --bg2:       #111827;
+      --accent:    #00D4FF;
+      --accent2:   #0066FF;
+      --metal:     #8B96A5;
+      --text:      #CBD5E1;
+      --text-dim:  #4B5563;
+      --border:    rgba(0, 212, 255, 0.12);
+      --border2:   rgba(255,255,255,0.06);
+      --mono:      'Share Tech Mono', monospace;
+      --head:      'Rajdhani', sans-serif;
+      --body:      'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* scanlines subtiles */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,.08) 2px,
+        rgba(0,0,0,.08) 4px
+      );
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+    /* ── NOISE OVERLAY ────────────────────────────────────────── */
+    .noise {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      opacity: .03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 128px;
+    }
+
+    /* ── NAV ──────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 0;
+      transition: background .3s, padding .3s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(10,14,20,.95);
+      backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
+      padding: 12px 0;
+    }
+    nav .container { display: flex; align-items: center; justify-content: space-between; }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 14px;
+      text-decoration: none;
+    }
+    .logo-mark {
+      width: 38px; height: 38px;
+      border: 1.5px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .logo-mark::before {
+      content: '';
+      position: absolute; inset: 4px;
+      border: 1px solid rgba(0,212,255,.3);
+    }
+    .logo-sigle {
+      font-family: var(--mono); font-size: .75rem;
+      color: var(--accent); letter-spacing: .1em;
+    }
+    .logo-text { line-height: 1.1; }
+    .logo-name {
+      font-family: var(--head); font-size: 1.1rem; font-weight: 700;
+      color: #fff; letter-spacing: .08em; text-transform: uppercase;
+      display: block;
+    }
+    .logo-sector {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--metal); letter-spacing: .08em;
+    }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-family: var(--head); font-size: .85rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--metal); text-decoration: none;
+      transition: color .2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transition: transform .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      font-family: var(--head); font-size: .85rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 8px 20px;
+      position: relative; overflow: hidden;
+      transition: color .3s;
+    }
+    .nav-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--accent); transform: translateX(-101%);
+      transition: transform .3s;
+    }
+    .nav-cta span { position: relative; z-index: 1; }
+    .nav-cta:hover { color: var(--bg); }
+    .nav-cta:hover::before { transform: translateX(0); }
+
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .burger span { display: block; width: 24px; height: 1.5px; background: var(--metal); transition: all .3s; }
+    .burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--accent); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--accent); }
+
+    /* ── MOBILE MENU ──────────────────────────────────────────── */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(10,14,20,.98);
+      flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--head); font-size: 2rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text); text-decoration: none; transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--accent); }
+    .mobile-close {
+      position: absolute; top: 24px; right: 28px;
+      background: none; border: none; color: var(--metal);
+      font-size: 1.6rem; cursor: pointer; transition: color .2s;
+    }
+    .mobile-close:hover { color: var(--accent); }
+
+    /* ── HERO ─────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: var(--bg);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .noise-hero { position: absolute; inset: 0; }
+
+    /* grille technique */
+    .hero-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    /* point cible en haut à droite */
+    .hero-target {
+      position: absolute; top: 15%; right: 8%;
+      width: 320px; height: 320px;
+      border: 1px solid rgba(0,212,255,.08);
+      border-radius: 50%;
+    }
+    .hero-target::before {
+      content: ''; position: absolute;
+      top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 1px solid rgba(0,212,255,.06);
+      border-radius: 50%;
+    }
+    .hero-target::after {
+      content: '+'; position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-family: var(--mono); font-size: 1.5rem;
+      color: rgba(0,212,255,.15);
+    }
+
+    /* ligne diagonale accent */
+    .hero-line {
+      position: absolute; top: 0; right: 22%;
+      width: 1px; height: 40%;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      opacity: .2;
+    }
+
+    .hero-inner { padding: 140px 0 100px; position: relative; z-index: 2; }
+
+    .hero-sys {
+      font-family: var(--mono); font-size: .7rem;
+      color: var(--accent); letter-spacing: .15em;
+      margin-bottom: 28px;
+      opacity: 0; animation: fadeUp .5s .1s forwards;
+    }
+    .hero-sys::before { content: '> '; opacity: .5; }
+
+    .hero-h1 {
+      font-family: var(--head);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 700; line-height: .95;
+      color: #fff; text-transform: uppercase; letter-spacing: .04em;
+      margin-bottom: 28px;
+      opacity: 0; animation: fadeUp .5s .25s forwards;
+    }
+    .hero-h1 .line2 {
+      display: block; color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,.25);
+    }
+    .hero-h1 .highlight {
+      color: var(--accent);
+      -webkit-text-stroke: 0;
+    }
+
+    .hero-desc {
+      font-size: 1rem; line-height: 1.8;
+      color: var(--metal); max-width: 540px;
+      margin-bottom: 48px;
+      opacity: 0; animation: fadeUp .5s .4s forwards;
+    }
+
+    .hero-actions {
+      display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+      margin-bottom: 64px;
+      opacity: 0; animation: fadeUp .5s .55s forwards;
+    }
+    .btn-accent {
+      font-family: var(--head); font-size: .95rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      background: var(--accent); color: var(--bg);
+      text-decoration: none; padding: 13px 28px;
+      transition: box-shadow .2s, transform .2s;
+      display: inline-block;
+    }
+    .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,212,255,.3); }
+    .btn-ghost {
+      font-family: var(--head); font-size: .9rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      border: 1px solid var(--border2); color: var(--metal);
+      text-decoration: none; padding: 12px 24px;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--metal); color: #fff; }
+
+    /* certifications */
+    .hero-certs {
+      display: flex; gap: 20px; flex-wrap: wrap; align-items: center;
+      opacity: 0; animation: fadeUp .5s .7s forwards;
+    }
+    .cert-badge {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--metal); letter-spacing: .1em;
+      border: 1px solid var(--border2);
+      padding: 5px 12px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .cert-badge::before { content: '◆'; font-size: .4rem; color: var(--accent); }
+
+    /* chiffres hero */
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border2); border-left: 1px solid var(--border2);
+      margin-top: 72px;
+      opacity: 0; animation: fadeUp .5s .85s forwards;
+    }
+    .stat-item {
+      padding: 28px 24px;
+      border-right: 1px solid var(--border2);
+      border-bottom: 1px solid var(--border2);
+    }
+    .stat-val {
+      font-family: var(--head); font-size: 2.4rem; font-weight: 700;
+      color: var(--accent); line-height: 1; margin-bottom: 6px;
+    }
+    .stat-lbl {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--metal); letter-spacing: .1em; text-transform: uppercase;
+    }
+
+    /* ── CAPACITÉS ────────────────────────────────────────────── */
+    #capacites {
+      padding: 100px 0;
+      background: var(--bg);
+      position: relative;
+    }
+    #capacites::before {
+      content: '';
+      position: absolute; left: 0; right: 0; top: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      opacity: .2;
+    }
+
+    .section-sys {
+      font-family: var(--mono); font-size: .7rem;
+      color: var(--accent); letter-spacing: .15em;
+      margin-bottom: 12px;
+    }
+    .section-sys::before { content: '// '; opacity: .5; }
+
+    .section-title {
+      font-family: var(--head);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+      color: #fff; margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: .95rem; line-height: 1.7; color: var(--metal);
+      max-width: 560px; margin-bottom: 56px;
+    }
+
+    .capacites-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1px; background: var(--border2);
+      border: 1px solid var(--border2);
+    }
+    .cap-card {
+      background: var(--bg2);
+      padding: 36px; position: relative;
+      transition: background .25s;
+      overflow: hidden;
+    }
+    .cap-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s;
+    }
+    .cap-card:hover { background: #151e2d; }
+    .cap-card:hover::before { transform: scaleX(1); }
+
+    .cap-code {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--text-dim); letter-spacing: .15em;
+      margin-bottom: 20px;
+    }
+    .cap-titre {
+      font-family: var(--head); font-size: 1.2rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: #fff; margin-bottom: 12px;
+    }
+    .cap-texte {
+      font-size: .875rem; line-height: 1.7;
+      color: var(--metal); margin-bottom: 24px;
+    }
+    .cap-spec {
+      font-family: var(--mono); font-size: .75rem;
+      color: var(--accent); letter-spacing: .1em;
+      padding: 6px 12px;
+      border: 1px solid rgba(0,212,255,.2);
+      display: inline-block;
+    }
+
+    /* ── MARCHÉS ──────────────────────────────────────────────── */
+    #marches {
+      padding: 100px 0;
+      background: var(--bg2);
+      position: relative;
+    }
+    #marches::before {
+      content: '';
+      position: absolute; left: 0; right: 0; top: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border2), transparent);
+    }
+
+    .marches-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .marches-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .marche-item {
+      border: 1px solid var(--border2);
+      padding: 24px 16px;
+      text-align: center;
+      transition: border-color .2s, background .2s;
+      cursor: default;
+    }
+    .marche-item:hover {
+      border-color: var(--accent);
+      background: rgba(0,212,255,.04);
+    }
+    .marche-icone { font-size: 1.8rem; margin-bottom: 10px; }
+    .marche-nom {
+      font-family: var(--head); font-size: .85rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--metal);
+    }
+
+    .atouts-list { list-style: none; }
+    .atout-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border2);
+    }
+    .atout-item:last-child { border-bottom: none; }
+    .atout-num {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--accent); letter-spacing: .1em;
+      flex-shrink: 0; padding-top: 2px;
+    }
+    .atout-texte { font-size: .9rem; line-height: 1.6; color: var(--text); }
+
+    /* ── QUALITÉ ──────────────────────────────────────────────── */
+    #qualite {
+      padding: 100px 0;
+      background: var(--bg);
+      position: relative;
+    }
+    #qualite::before {
+      content: '';
+      position: absolute; left: 0; right: 0; top: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      opacity: .15;
+    }
+
+    .qualite-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+
+    /* schéma process */
+    .process-steps { display: flex; flex-direction: column; gap: 0; }
+    .process-step {
+      display: flex; gap: 24px; align-items: flex-start;
+      position: relative;
+    }
+    .step-line {
+      display: flex; flex-direction: column; align-items: center; flex-shrink: 0;
+    }
+    .step-dot {
+      width: 10px; height: 10px;
+      border: 1.5px solid var(--accent);
+      background: var(--bg);
+      position: relative; z-index: 1;
+    }
+    .step-connector {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      opacity: .3;
+    }
+    .process-step:last-child .step-connector { display: none; }
+    .step-body { padding-bottom: 40px; }
+    .step-label {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--accent); letter-spacing: .12em; margin-bottom: 6px;
+    }
+    .step-titre {
+      font-family: var(--head); font-size: 1rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: #fff; margin-bottom: 6px;
+    }
+    .step-texte { font-size: .875rem; line-height: 1.6; color: var(--metal); }
+
+    /* carte certif */
+    .certif-panel {
+      border: 1px solid var(--border);
+      background: rgba(0,212,255,.02);
+      padding: 48px;
+    }
+    .certif-title {
+      font-family: var(--mono); font-size: .7rem;
+      color: var(--accent); letter-spacing: .15em;
+      margin-bottom: 32px;
+    }
+    .certif-list { list-style: none; margin-bottom: 40px; }
+    .certif-list li {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--border2);
+      font-family: var(--head); font-size: 1rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .06em; color: #fff;
+    }
+    .certif-list li::before {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .certif-note {
+      font-size: .825rem; line-height: 1.7; color: var(--metal);
+      border-left: 2px solid var(--accent);
+      padding-left: 16px;
+    }
+
+    /* ── CONTACT ──────────────────────────────────────────────── */
+    #contact {
+      padding: 100px 0;
+      background: var(--bg2);
+      position: relative;
+    }
+    #contact::before {
+      content: '';
+      position: absolute; left: 0; right: 0; top: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border2), transparent);
+    }
+
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+
+    .contact-info { }
+    .contact-headline {
+      font-size: .95rem; line-height: 1.8; color: var(--metal); margin-bottom: 48px;
+    }
+    .contact-item {
+      display: flex; gap: 16px; align-items: flex-start; margin-bottom: 28px;
+    }
+    .contact-ic {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+      color: var(--accent);
+    }
+    .contact-detail strong {
+      font-family: var(--mono); font-size: .65rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--metal); display: block; margin-bottom: 3px;
+    }
+    .contact-detail a, .contact-detail span {
+      font-size: .9rem; color: var(--text); text-decoration: none;
+      transition: color .2s;
+    }
+    .contact-detail a:hover { color: var(--accent); }
+
+    /* formulaire devis */
+    .devis-form { display: flex; flex-direction: column; gap: 12px; }
+    .devis-title {
+      font-family: var(--head); font-size: .75rem; font-weight: 600;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .devis-title::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .fg { display: flex; flex-direction: column; gap: 5px; }
+    .fg label {
+      font-family: var(--mono); font-size: .6rem;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim);
+    }
+    .fg input, .fg textarea, .fg select {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      font-family: var(--body); font-size: .875rem;
+      padding: 10px 14px;
+      transition: border-color .2s;
+      width: 100%;
+      appearance: none;
+    }
+    .fg input:focus, .fg textarea:focus, .fg select:focus {
+      outline: none; border-color: var(--accent);
+    }
+    .fg textarea { resize: vertical; min-height: 100px; }
+    .fg select option { background: var(--bg2); }
+
+    .form-submit {
+      font-family: var(--head); font-size: .9rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      background: var(--accent); color: var(--bg);
+      border: none; padding: 13px 28px; cursor: pointer;
+      transition: box-shadow .2s, transform .2s;
+      align-self: flex-start; margin-top: 4px;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,212,255,.25); }
+
+    /* ── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      background: #060A0F;
+      border-top: 1px solid var(--border2);
+      padding: 28px 0;
+    }
+    footer .container {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--text-dim); letter-spacing: .08em;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--text-dim); text-decoration: none; letter-spacing: .08em;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── CTA FLOTTANT ─────────────────────────────────────────── */
+    #cta-float {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
+      background: rgba(10,14,20,.96);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: center; gap: 24px;
+      transform: translateY(100%);
+      transition: transform .35s;
+    }
+    #cta-float.visible { transform: translateY(0); }
+    #cta-float p {
+      font-family: var(--mono); font-size: .75rem;
+      color: var(--metal); letter-spacing: .08em;
+    }
+    #cta-float a {
+      font-family: var(--head); font-size: .85rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--bg); background: var(--accent);
+      text-decoration: none; padding: 8px 20px;
+    }
+
+    /* ── ANIMATIONS ───────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s, transform .6s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .marches-inner, .qualite-inner, .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .nav-links, .nav-cta { display: none; }
+      .burger { display: flex; }
+    }
+    @media (max-width: 640px) {
+      .capacites-grid { grid-template-columns: 1fr; }
+      .marches-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── CTA FLOTTANT ─────────────────────────────────────────── -->
+  <div id="cta-float">
+    <p id="cta-sys">DEMANDE DE DEVIS — RÉPONSE SOUS 48H</p>
+    <a href="#contact">Envoyer une demande →</a>
+  </div>
+
+  <!-- ── MOBILE MENU ──────────────────────────────────────────── -->
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-close" id="close-menu">✕</button>
+    <a href="#capacites" class="ml">Capacités</a>
+    <a href="#marches" class="ml">Marchés</a>
+    <a href="#qualite" class="ml">Qualité</a>
+    <a href="#contact" class="ml">Contact / Devis</a>
+  </div>
+
+  <!-- ── NAV ─────────────────────────────────────────────────── -->
+  <nav id="nav">
+    <div class="container">
+      <a href="#" class="nav-logo" id="nav-logo-link">
+        <div class="logo-mark"><span class="logo-sigle" id="logo-sigle">PS</span></div>
+        <div class="logo-text">
+          <span class="logo-name" id="logo-name">Nom</span>
+          <span class="logo-sector" id="logo-sector">secteur</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#capacites">Capacités</a></li>
+        <li><a href="#marches">Marchés</a></li>
+        <li><a href="#qualite">Qualité</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta"><span>Demande de devis</span></a>
+      <div class="burger" id="burger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-target"></div>
+    <div class="hero-line"></div>
+    <div class="noise noise-hero"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <p class="hero-sys" id="hero-sys">SYS_INIT — CHARGEMENT PROFIL</p>
+        <h1 class="hero-h1" id="hero-h1">
+          <span>PRÉCISION</span>
+          <span class="line2">TECHNIQUE <span class="highlight">INDUSTRIELLE</span></span>
+        </h1>
+        <p class="hero-desc" id="hero-desc">description</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-accent">Demander un devis</a>
+          <a href="#capacites" class="btn-ghost">Voir nos capacités</a>
+        </div>
+        <div class="hero-certs" id="hero-certs"></div>
+        <div class="hero-stats" id="hero-stats"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CAPACITÉS ────────────────────────────────────────────── -->
+  <section id="capacites">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-sys">CAPACITÉS DE PRODUCTION</p>
+        <h2 class="section-title">Nos équipements</h2>
+        <p class="section-sub" id="cap-sub">description</p>
+      </div>
+      <div class="capacites-grid reveal" id="cap-grid"></div>
+    </div>
+  </section>
+
+  <!-- ── MARCHÉS ──────────────────────────────────────────────── -->
+  <section id="marches">
+    <div class="container">
+      <div class="marches-inner">
+        <div class="reveal">
+          <p class="section-sys">SECTEURS DESSERVIS</p>
+          <h2 class="section-title">Nos marchés</h2>
+          <p class="section-sub" id="marches-sub">description</p>
+          <ul class="atouts-list reveal" id="atouts-list"></ul>
+        </div>
+        <div class="marches-grid reveal" id="marches-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── QUALITÉ ──────────────────────────────────────────────── -->
+  <section id="qualite">
+    <div class="container">
+      <div class="qualite-inner">
+        <div class="reveal">
+          <p class="section-sys">DÉMARCHE QUALITÉ</p>
+          <h2 class="section-title">Process & Certifications</h2>
+          <div class="process-steps" id="process-steps"></div>
+        </div>
+        <div class="certif-panel reveal" id="certif-panel"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ──────────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="reveal">
+          <p class="section-sys">NOUS CONTACTER</p>
+          <h2 class="section-title">Demande de devis</h2>
+          <p class="contact-headline" id="contact-headline">description</p>
+          <div id="contact-details"></div>
+        </div>
+        <div class="reveal" id="contact-form-wrap"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ───────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <p class="footer-copy" id="footer-copy"></p>
+      <div class="footer-links">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── SCRIPT ───────────────────────────────────────────────── -->
+  <script>
+  (function () {
+    /* CSS vars */
+    const root = document.documentElement;
+    root.style.setProperty('--bg',     CLIENT.couleurPrimaire);
+    root.style.setProperty('--accent', CLIENT.couleurAccent);
+    root.style.setProperty('--metal',  CLIENT.couleurMetal);
+    root.style.setProperty('--text',   CLIENT.couleurTexte);
+
+    const annees = new Date().getFullYear() - CLIENT.anneeCreation;
+
+    /* Nav */
+    document.getElementById('logo-sigle').textContent = CLIENT.sigle;
+    document.getElementById('logo-name').textContent   = CLIENT.nom;
+    document.getElementById('logo-sector').textContent = CLIENT.secteur.toUpperCase();
+
+    /* Hero */
+    document.getElementById('hero-sys').textContent =
+      `SYS_INIT — ${CLIENT.secteur.toUpperCase()} — ${CLIENT.ville.toUpperCase()}`;
+    const h1 = document.getElementById('hero-h1');
+    const words = CLIENT.secteur.split(' & ');
+    h1.innerHTML = words.length > 1
+      ? `<span>${words[0].toUpperCase()}</span><span class="line2">&amp; <span class="highlight">${words[1].toUpperCase()}</span></span>`
+      : `<span>${CLIENT.secteur.toUpperCase()}</span><span class="line2"><span class="highlight">${CLIENT.ville.toUpperCase()}</span></span>`;
+    document.getElementById('hero-desc').textContent = CLIENT.description;
+
+    document.getElementById('hero-certs').innerHTML =
+      CLIENT.certifications.map(c => `<div class="cert-badge">${c}</div>`).join('');
+
+    document.getElementById('hero-stats').innerHTML =
+      CLIENT.chiffres.map(c => `
+        <div class="stat-item">
+          <div class="stat-val">${c.val}</div>
+          <div class="stat-lbl">${c.label}</div>
+        </div>`).join('');
+
+    /* Capacités */
+    document.getElementById('cap-sub').textContent =
+      `${CLIENT.nom} dispose d'un parc machine moderne pour répondre à vos exigences de précision et de délais.`;
+    document.getElementById('cap-grid').innerHTML =
+      CLIENT.capacites.map(c => `
+        <div class="cap-card">
+          <div class="cap-code">CAP_${c.code}</div>
+          <div class="cap-titre">${c.titre}</div>
+          <div class="cap-texte">${c.texte}</div>
+          <span class="cap-spec">${c.spec}</span>
+        </div>`).join('');
+
+    /* Marchés */
+    document.getElementById('marches-sub').textContent =
+      `Nous intervenons pour des donneurs d'ordre exigeants dans des secteurs à haute valeur ajoutée.`;
+    document.getElementById('marches-grid').innerHTML =
+      CLIENT.secteursMarchés.map(m => `
+        <div class="marche-item">
+          <div class="marche-icone">${m.icone}</div>
+          <div class="marche-nom">${m.nom}</div>
+        </div>`).join('');
+    document.getElementById('atouts-list').innerHTML =
+      CLIENT.atouts.map((a, i) => `
+        <li class="atout-item">
+          <span class="atout-num">0${i+1}</span>
+          <span class="atout-texte">${a}</span>
+        </li>`).join('');
+
+    /* Qualité – process */
+    const steps = [
+      { lbl: 'ÉTAPE_01', titre: 'Analyse de faisabilité', texte: 'Étude du cahier des charges, choix matière, cotation. Réponse sous 48h.' },
+      { lbl: 'ÉTAPE_02', titre: 'Devis & validation', texte: 'Devis détaillé, gamme opératoire, délai garanti. Validation avec le client.' },
+      { lbl: 'ÉTAPE_03', titre: 'Production', texte: 'Mise en production sur nos centres CNC. Contrôle en cours de fabrication.' },
+      { lbl: 'ÉTAPE_04', titre: 'Contrôle final', texte: 'Contrôle tridimensionnel, rapport de conformité, libération lot.' },
+      { lbl: 'ÉTAPE_05', titre: 'Livraison', texte: 'Conditionnement adapté, traçabilité complète, livraison franco si volume.' }
+    ];
+    document.getElementById('process-steps').innerHTML = steps.map(s => `
+      <div class="process-step">
+        <div class="step-line">
+          <div class="step-dot"></div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-label">${s.lbl}</div>
+          <div class="step-titre">${s.titre}</div>
+          <div class="step-texte">${s.texte}</div>
+        </div>
+      </div>`).join('');
+
+    document.getElementById('certif-panel').innerHTML = `
+      <div class="certif-title">CERTIFICATIONS & ENGAGEMENTS</div>
+      <ul class="certif-list">
+        ${CLIENT.certifications.map(c => `<li>${c}</li>`).join('')}
+      </ul>
+      <p class="certif-note">
+        Notre système qualité garantit une traçabilité totale de la commande à la livraison.
+        Chaque lot est accompagné d'un rapport de contrôle. Audit client accepté sur demande.
+      </p>`;
+
+    /* Contact */
+    document.getElementById('contact-headline').textContent =
+      `Transmettez-nous vos plans ou cahier des charges. Notre bureau d'études vous répond sous 48h avec une analyse de faisabilité gratuite.`;
+    document.getElementById('contact-details').innerHTML = `
+      <div class="contact-item">
+        <div class="contact-ic">📞</div>
+        <div class="contact-detail">
+          <strong>téléphone</strong>
+          <a href="tel:${CLIENT.tel.replace(/\s/g,'')}">${CLIENT.tel}</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-ic">✉</div>
+        <div class="contact-detail">
+          <strong>email</strong>
+          <a href="mailto:${CLIENT.email}">${CLIENT.email}</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-ic">📍</div>
+        <div class="contact-detail">
+          <strong>adresse</strong>
+          <span>${CLIENT.adresse}</span>
+        </div>
+      </div>`;
+
+    document.getElementById('contact-form-wrap').innerHTML = `
+      <div class="devis-form">
+        <div class="devis-title">Formulaire de demande</div>
+        <div class="form-row">
+          <div class="fg"><label>Société</label><input type="text" placeholder="Votre entreprise" /></div>
+          <div class="fg"><label>Contact</label><input type="text" placeholder="Nom & prénom" /></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>Téléphone</label><input type="tel" placeholder="04 xx xx xx xx" /></div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="contact@societe.fr" /></div>
+        </div>
+        <div class="fg">
+          <label>Type de pièce / matière</label>
+          <input type="text" placeholder="Ex : pièce alu tournée Ø12, inox 316L…" />
+        </div>
+        <div class="fg">
+          <label>Volume estimé (pièces/an)</label>
+          <select>
+            <option>< 500 pièces</option>
+            <option>500 – 5 000 pièces</option>
+            <option>5 000 – 50 000 pièces</option>
+            <option>> 50 000 pièces</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Message / cahier des charges</label>
+          <textarea placeholder="Décrivez votre besoin, joignez si possible vos plans par email…"></textarea>
+        </div>
+        <button class="form-submit">Envoyer la demande →</button>
+      </div>`;
+
+    /* Footer */
+    document.getElementById('footer-copy').textContent =
+      `© ${new Date().getFullYear()} ${CLIENT.nom} — ${CLIENT.secteur} — ${CLIENT.ville} — SIREN ${CLIENT.siren}`;
+
+    /* Scroll effects */
+    const nav     = document.getElementById('nav');
+    const ctaFl   = document.getElementById('cta-float');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+      ctaFl.classList.toggle('visible', window.scrollY > 500);
+    });
+
+    /* Reveal */
+    const obs = new IntersectionObserver(entries =>
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.08 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    /* Burger */
+    const burger = document.getElementById('burger');
+    const mm     = document.getElementById('mobile-menu');
+    const close  = () => { mm.classList.remove('open'); burger.classList.remove('open'); };
+    burger.addEventListener('click', () => { mm.classList.toggle('open'); burger.classList.toggle('open'); });
+    document.getElementById('close-menu').addEventListener('click', close);
+    document.querySelectorAll('.ml').forEach(l => l.addEventListener('click', close));
+  })();
+  </script>
+</body>
+</html>
